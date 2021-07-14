@@ -19,7 +19,7 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex'
-import { getAssets, getAddress } from '@/services/api'
+import { getAssets } from '@/services/api'
 
 export default {
   data() {
@@ -35,8 +35,20 @@ export default {
       address: state => state.address
     })
   },
-  mounted() {
-
+  async mounted() {
+    if (window.ethereum) {
+      try {
+        // 有裝 metamask -> 試著拿 metamask 地址
+        const accounts = await ethereum.request({ method: 'eth_requestAccounts' })
+        this.setAddress(accounts[0])
+      } catch(err) {
+        // 有裝 metamask -> 拒絕 connect
+        console.log(err)
+      }
+    } else {
+      // 沒裝 metamask -> 用預設地址
+      this.setAddress('0x960DE9907A2e2f5363646d48D7FB675Cd2892e91')
+    }
   },
   methods: {
     ...mapMutations('account', ['setAddress']),

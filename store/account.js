@@ -1,5 +1,5 @@
 const initialState = {
-    address: '0x960DE9907A2e2f5363646d48D7FB675Cd2892e91'
+    address: ''
 }
 
 export const state = initialState

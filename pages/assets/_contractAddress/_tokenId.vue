@@ -54,6 +54,7 @@ export default {
     },
     methods: {
         infiniteHandler($state) {
+            // 借用 infinite loading 的 loading spin
             getAssetsDetail(this.contractAddress, this.tokenId).then(res => {
                 this.detail = res
                 $state.loaded()

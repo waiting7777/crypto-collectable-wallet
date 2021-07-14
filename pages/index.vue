@@ -56,12 +56,13 @@ export default {
       getAssets(this.address, this.offset).then(res => {
         const assets = res.assets
         this.assets = this.assets.concat(assets)
-          if (assets.length < this.itemPerPage) {
-            $state.complete()
-          } else {
-            this.offset += this.itemPerPage
-            $state.loaded()
-          }
+        // 觸發 load 時 如果發現回傳的 assets 不到 20 個 代表已經到底了
+        if (assets.length < this.itemPerPage) {
+          $state.complete()
+        } else {
+          this.offset += this.itemPerPage
+          $state.loaded()
+        }
       })
     }
   }
